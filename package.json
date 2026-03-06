@@ -1,0 +1,78 @@
+{
+  "name": "@healthdevio/l-pw2c",
+  "version": "0.1.0",
+  "description": "CLI para instalar, listar, atualizar e expor skills da HealthDev para agentes de IA.",
+  "type": "module",
+  "bin": {
+    "l-pw2c": "./dist/cli.js"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "skills",
+    "README.md",
+    "docs"
+  ],
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "packageManager": "npm@11.10.1",
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsx src/cli.ts",
+    "lint": "eslint . && prettier --check .",
+    "format": "prettier --write .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:ci": "vitest run --reporter=dot",
+    "package:check": "npm pack --dry-run",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "changeset publish"
+  },
+  "keywords": [
+    "skills",
+    "cursor",
+    "mcp",
+    "cli",
+    "healthdevio"
+  ],
+  "author": "HealthDev",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/healthdevio/l-pw2c.git"
+  },
+  "homepage": "https://github.com/healthdevio/l-pw2c",
+  "bugs": {
+    "url": "https://github.com/healthdevio/l-pw2c/issues"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.27.1",
+    "commander": "^14.0.3",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.30.0",
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^25.3.5",
+    "eslint": "^10.0.2",
+    "prettier": "^3.8.1",
+    "tsup": "^8.5.1",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.56.1",
+    "vitest": "^4.0.18"
+  }
+}

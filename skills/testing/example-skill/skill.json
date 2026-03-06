@@ -1,0 +1,14 @@
+{
+  "id": "example-skill",
+  "name": "Example Skill",
+  "version": "0.1.0",
+  "category": "testing",
+  "description": "Skill inicial para validar instalação, atualização e descoberta via MCP.",
+  "entry": "SKILL.md",
+  "files": ["SKILL.md", "templates/template.md", "references/reference.md"],
+  "tags": ["example", "testing", "cursor"],
+  "compatibility": {
+    "targets": ["cursor", "mcp"],
+    "minimumCliVersion": "0.1.0"
+  }
+}

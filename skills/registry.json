@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "skills": [
+    {
+      "id": "example-skill",
+      "name": "Example Skill",
+      "version": "0.1.0",
+      "category": "testing",
+      "description": "Skill inicial para validar instalação, atualização e descoberta via MCP.",
+      "manifestPath": "testing/example-skill/skill.json"
+    }
+  ]
+}
