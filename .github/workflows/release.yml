@@ -1,15 +1,12 @@
 name: Release
 
 on:
-  push:
+  workflow_run:
+    workflows: [CI]
+    types:
+      - completed
     branches:
       - main
-    paths-ignore:
-      - ".vscode/**"
-      - ".cursor/**"
-      - "docs/**"
-      - ".gitignore"
-      - "README.md"
 
 permissions:
   contents: write
@@ -17,7 +14,9 @@ permissions:
 
 jobs:
   release:
+    name: Release workflow triggered by CI workflow
     runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
