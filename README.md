@@ -1,5 +1,7 @@
 # l-pw2c
 
+[![Release](https://github.com/healthdevio/l-pw2c/actions/workflows/release.yml/badge.svg?branch=main)](https://github.com/healthdevio/l-pw2c/actions/workflows/release.yml) [![CI](https://github.com/healthdevio/l-pw2c/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/healthdevio/l-pw2c/actions/workflows/ci.yml)
+
 CLI e servidor MCP para distribuir skills pré-definidas da HealthDev aos desenvolvedores.
 
 O projeto foi inspirado na ideia do [`tech-leads-club/agent-skills`](https://github.com/tech-leads-club/agent-skills), mas focado em um catálogo interno simples, versionado no GitHub e pronto para CI/CD.
@@ -173,7 +175,7 @@ npm run package:check
 
 O workflow de release usa Changesets, GitHub Actions e GitHub Packages. O fluxo faz **commit direto na `main`** (sem abrir PR), para funcionar mesmo quando a organização não permite que o GitHub Actions crie pull requests. Se essa permissão estiver habilitada (Settings → Actions → General → "Allow GitHub Actions to create and approve pull requests"), você pode optar por usar a `changesets/action` com fluxo baseado em PR.
 
-**Como publicar uma nova versão**
+#### Como publicar uma nova versão
 
 1. **Criar o changeset** — `npm run changeset`. Escolha o tipo de bump (patch, minor, major) e escreva o resumo das mudanças (entra no CHANGELOG).
 2. **Commitar e enviar** — commit do arquivo em `.changeset/` (e das suas alterações) e push na `main`.
