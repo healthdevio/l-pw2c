@@ -16,6 +16,14 @@
       "category": "document",
       "description": "Escreva, revise e edite arquivos de documentação estruturada.",
       "manifestPath": "document/docs-writer/skill.json"
+    },
+    {
+      "id": "component-architect",
+      "name": "Component Architect",
+      "version": "0.1.0",
+      "category": "frontend",
+      "description": "Especialista em engenharia de componentes React/Next.js com foco em DRY, reutilização e padrões SOLID.",
+      "manifestPath": "frontend/component-architect/skill.json"
     }
   ]
 }
