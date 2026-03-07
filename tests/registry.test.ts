@@ -8,13 +8,17 @@ import {
   validateRegistry,
 } from "../src/core/registry.js";
 
+const registryLength = 2;
+
 describe("skill registry", () => {
   it("carrega e valida o catálogo padrão", async () => {
     const paths = resolvePaths();
     const registry = await loadRegistry(paths.registryFile);
 
-    expect(registry).toHaveLength(1);
-    await expect(validateRegistry(paths.registryFile)).resolves.toHaveLength(1);
+    expect(registry).toHaveLength(registryLength);
+    await expect(validateRegistry(paths.registryFile)).resolves.toHaveLength(
+      registryLength,
+    );
   });
 
   it("retorna o descriptor completo de uma skill", async () => {

@@ -83,6 +83,10 @@ O arquivo de estado fica em:
 
 `<projeto>/.cursor/l-pw2c/state.json`
 
+Esse arquivo funciona como um índice local das skills instaladas. Ele guarda metadados como `id`, `version`, `installedAt`, `installPath` e `category`, permitindo que a CLI saiba rapidamente o que está instalado para comandos como `skill list`, `skill update` e `skill update --all`.
+
+Quando a última skill é removida, o `state.json` também é apagado. A pasta `.cursor/l-pw2c` só é removida se estiver vazia, para não apagar arquivos extras adicionados manualmente.
+
 Você também pode sobrescrever paths com opções da CLI:
 
 - `--project-dir`

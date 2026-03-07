@@ -8,6 +8,14 @@
       "category": "testing",
       "description": "Skill inicial para validar instalação, atualização e descoberta via MCP.",
       "manifestPath": "testing/example-skill/skill.json"
+    },
+    {
+      "id": "docs-writer",
+      "name": "Docs Writer",
+      "version": "0.1.0",
+      "category": "document",
+      "description": "Escreva, revise e edite arquivos de documentação estruturada.",
+      "manifestPath": "document/docs-writer/skill.json"
     }
   ]
 }

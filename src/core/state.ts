@@ -1,4 +1,5 @@
-import { readFile, writeFile } from "node:fs/promises";
+import { readFile, rmdir, unlink, writeFile } from "node:fs/promises";
+import { dirname } from "node:path";
 
 import { z } from "zod";
 
@@ -58,6 +59,32 @@ export async function removeInstalledSkill(
 ): Promise<SkillState> {
   const state = await loadState(stateFile);
   delete state.installedSkills[skillId];
+
+  if (Object.keys(state.installedSkills).length === 0) {
+    await removeStateFile(stateFile);
+    return state;
+  }
+
   await saveState(stateFile, state);
   return state;
+}
+
+async function removeStateFile(stateFile: string): Promise<void> {
+  try {
+    await unlink(stateFile);
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code !== "ENOENT") {
+      throw error;
+    }
+  }
+
+  try {
+    await rmdir(dirname(stateFile));
+  } catch (error) {
+    const code = (error as NodeJS.ErrnoException).code;
+
+    if (code !== "ENOENT" && code !== "ENOTEMPTY") {
+      throw error;
+    }
+  }
 }

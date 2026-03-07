@@ -1,0 +1,14 @@
+{
+  "id": "docs-writer",
+  "name": "Docs Writer",
+  "version": "0.1.0",
+  "category": "document",
+  "description": "Escreva, revise e edite arquivos de documentação estruturada.",
+  "entry": "SKILL.md",
+  "files": ["SKILL.md", "references/style-guide.md"],
+  "tags": ["document", "cursor"],
+  "compatibility": {
+    "targets": ["cursor", "mcp"],
+    "minimumCliVersion": "0.1.0"
+  }
+}

@@ -1,5 +1,5 @@
-import { access, mkdtemp, readFile, rm } from "node:fs/promises";
-import { join } from "node:path";
+import { access, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import { dirname, join } from "node:path";
 import { tmpdir } from "node:os";
 
 import { afterEach, describe, expect, it } from "vitest";
@@ -10,7 +10,7 @@ import {
   uninstallSkill,
   updateSkill,
 } from "../src/core/installer.js";
-import { loadState } from "../src/core/state.js";
+import { loadState, saveState } from "../src/core/state.js";
 
 const tempDirectories: string[] = [];
 
@@ -64,9 +64,56 @@ describe("installer", () => {
 
     await installSkill(paths, "example-skill");
     const removed = await uninstallSkill(paths, "example-skill");
-    const state = await loadState(paths.stateFile);
 
     expect(removed).toBe(true);
-    expect(state.installedSkills["example-skill"]).toBeUndefined();
+    await expect(access(paths.stateFile)).rejects.toMatchObject({
+      code: "ENOENT",
+    });
+    await expect(access(dirname(paths.stateFile))).rejects.toMatchObject({
+      code: "ENOENT",
+    });
+  });
+
+  it("preserva o estado quando ainda existe outra skill registrada", async () => {
+    const projectDir = await createTempProject();
+    const paths = resolvePaths({ projectDir });
+
+    await installSkill(paths, "example-skill");
+    const state = await loadState(paths.stateFile);
+
+    state.installedSkills["another-skill"] = {
+      category: "testing",
+      id: "another-skill",
+      installPath: join(paths.installDir, "another-skill"),
+      installedAt: new Date().toISOString(),
+      version: "0.0.1",
+    };
+    await saveState(paths.stateFile, state);
+
+    const removed = await uninstallSkill(paths, "example-skill");
+    const nextState = await loadState(paths.stateFile);
+
+    expect(removed).toBe(true);
+    expect(nextState.installedSkills["another-skill"]?.version).toBe("0.0.1");
+    await expect(access(paths.stateFile)).resolves.toBeUndefined();
+  });
+
+  it("não apaga o diretório de estado se houver arquivos extras", async () => {
+    const projectDir = await createTempProject();
+    const paths = resolvePaths({ projectDir });
+
+    await installSkill(paths, "example-skill");
+    await writeFile(
+      join(dirname(paths.stateFile), "custom-note.txt"),
+      "keep me",
+    );
+
+    const removed = await uninstallSkill(paths, "example-skill");
+
+    expect(removed).toBe(true);
+    await expect(access(paths.stateFile)).rejects.toMatchObject({
+      code: "ENOENT",
+    });
+    await expect(access(dirname(paths.stateFile))).resolves.toBeUndefined();
   });
 });
