@@ -78,7 +78,14 @@ describe("cli", () => {
       const io = createIoBuffer();
 
       const exitCode = await runCli(
-        ["skill", "install", "--category", "testing", "--project-dir", projectDir],
+        [
+          "skill",
+          "install",
+          "--category",
+          "testing",
+          "--project-dir",
+          projectDir,
+        ],
         {
           stdout: (text) => io.stdout.push(text),
           stderr: (text) => io.stderr.push(text),
@@ -142,7 +149,11 @@ describe("cli", () => {
       expect(io.stderr).toHaveLength(0);
       const data = JSON.parse(io.stdout.join("")) as {
         category: string;
-        results: Array<{ skillId: string; version: string; installPath: string }>;
+        results: Array<{
+          skillId: string;
+          version: string;
+          installPath: string;
+        }>;
       };
       expect(data.category).toBe("frontend");
       expect(Array.isArray(data.results)).toBe(true);
@@ -159,7 +170,14 @@ describe("cli", () => {
       const uninstallIo = createIoBuffer();
 
       await runCli(
-        ["skill", "install", "--category", "testing", "--project-dir", projectDir],
+        [
+          "skill",
+          "install",
+          "--category",
+          "testing",
+          "--project-dir",
+          projectDir,
+        ],
         {
           stdout: (text) => installIo.stdout.push(text),
           stderr: (text) => installIo.stderr.push(text),
@@ -210,7 +228,9 @@ describe("cli", () => {
 
       expect(exitCode).toBe(0);
       expect(io.stderr).toHaveLength(0);
-      expect(io.stdout.join("")).toContain("Nenhuma skill instalada na categoria");
+      expect(io.stdout.join("")).toContain(
+        "Nenhuma skill instalada na categoria",
+      );
       expect(io.stdout.join("")).toContain("frontend");
     });
 
@@ -219,7 +239,14 @@ describe("cli", () => {
       const io = createIoBuffer();
 
       await runCli(
-        ["skill", "install", "--category", "document", "--project-dir", projectDir],
+        [
+          "skill",
+          "install",
+          "--category",
+          "document",
+          "--project-dir",
+          projectDir,
+        ],
         { stdout: () => {}, stderr: () => {} },
       );
 
