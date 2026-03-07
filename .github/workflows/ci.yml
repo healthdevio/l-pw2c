@@ -4,7 +4,19 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - ".vscode/**"
+      - ".cursor/**"
+      - "docs/**"
+      - ".gitignore"
+      - "README.md"
   pull_request:
+    paths-ignore:
+      - ".vscode/**"
+      - ".cursor/**"
+      - "docs/**"
+      - ".gitignore"
+      - "README.md"
 
 jobs:
   validate:

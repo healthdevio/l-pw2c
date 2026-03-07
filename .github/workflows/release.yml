@@ -4,6 +4,12 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - ".vscode/**"
+      - ".cursor/**"
+      - "docs/**"
+      - ".gitignore"
+      - "README.md"
 
 permissions:
   contents: write
