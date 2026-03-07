@@ -12,57 +12,29 @@ O projeto foi inspirado na ideia do [`tech-leads-club/agent-skills`](https://git
 - expor o catálogo local via MCP para o Cursor localizar habilidades
 - permitir que líderes do time adicionem novas skills sem alterar a arquitetura da CLI
 
-## Stack
+## Instalação
 
-- TypeScript estrito
-- ESM
-- Commander para CLI
-- Zod para validação
-- MCP TypeScript SDK
-- Vitest para testes
-- ESLint + Prettier
-- Changesets para release
-
-## Instalação local
+O pacote está publicado no GitHub Packages. Para usar sem instalar globalmente:
 
 ```bash
-npm install
-npm run build
+npx @healthdevio/l-pw2c skill install example-skill
+npx @healthdevio/l-pw2c skill list
+npx @healthdevio/l-pw2c mcp
 ```
 
-### Desenvolvimento
-
-```bash
-npm run dev -- skill list
-npm run dev -- skill install example-skill
-```
+Se preferir instalar globalmente no seu projeto (ou globalmente na máquina), use `npm install @healthdevio/l-pw2c` conforme a documentação do GitHub Packages. O binário fica disponível como `l-pw2c`.
 
 ## Uso da CLI
 
-### Localmente em desenvolvimento
-
 ```bash
-npm run dev -- skill install example-skill
-npm run dev -- skill uninstall example-skill
-npm run dev -- skill list
-npm run dev -- skill update example-skill
-npm run dev -- skill update --all
-```
-
-### Após instalar o pacote
-
-Se o pacote estiver instalado globalmente, o binário fica disponível como `l-pw2c`.
-
-```bash
-l-pw2c skill install example-skill
-l-pw2c skill uninstall example-skill
+l-pw2c skill install <skill-id>
+l-pw2c skill uninstall <skill-id>
 l-pw2c skill list
-l-pw2c mcp
+l-pw2c skill update <skill-id>
+l-pw2c skill update --all
 ```
 
-### Usando com `npx`
-
-Como o GitHub Packages exige pacote npm com scope, a chamada via `npx` ficará assim enquanto o pacote estiver publicado lá:
+Com `npx` (sem instalar):
 
 ```bash
 npx @healthdevio/l-pw2c skill install example-skill
@@ -70,8 +42,6 @@ npx @healthdevio/l-pw2c skill uninstall example-skill
 npx @healthdevio/l-pw2c skill list
 npx @healthdevio/l-pw2c mcp
 ```
-
-Se no futuro você quiser a ergonomia exata de `npx l-pw2c ...`, será necessário publicar também um pacote sem scope em outro registry ou criar um wrapper dedicado.
 
 ## Onde as skills são instaladas
 
@@ -87,17 +57,7 @@ Esse arquivo funciona como um índice local das skills instaladas. Ele guarda me
 
 Quando a última skill é removida, o `state.json` também é apagado. A pasta `.cursor/l-pw2c` só é removida se estiver vazia, para não apagar arquivos extras adicionados manualmente.
 
-Você também pode sobrescrever paths com opções da CLI:
-
-- `--project-dir`
-- `--install-dir`
-- `--state-file`
-
-Ou via variáveis de ambiente:
-
-- `LPW2C_PROJECT_DIR`
-- `LPW2C_INSTALL_DIR`
-- `LPW2C_STATE_FILE`
+Opções da CLI para paths: `--project-dir`, `--install-dir`, `--state-file`. Variáveis de ambiente: `LPW2C_PROJECT_DIR`, `LPW2C_INSTALL_DIR`, `LPW2C_STATE_FILE`.
 
 ## Comando MCP
 
@@ -107,14 +67,11 @@ O comando abaixo sobe um servidor MCP local via `stdio`:
 l-pw2c mcp
 ```
 
-Ferramentas expostas:
+Ferramentas expostas: `search_skills`, `read_skill`, `fetch_skill_files`, `list_skills`.
 
-- `search_skills`
-- `read_skill`
-- `fetch_skill_files`
-- `list_skills`
+### Configuração no Cursor
 
-### Exemplo de configuração no Cursor
+Com `npx`:
 
 ```json
 {
@@ -127,7 +84,7 @@ Ferramentas expostas:
 }
 ```
 
-Se o pacote estiver instalado globalmente:
+Com pacote instalado globalmente:
 
 ```json
 {
@@ -140,11 +97,54 @@ Se o pacote estiver instalado globalmente:
 }
 ```
 
-## Catálogo de skills
+## Catálogo
 
-O catálogo fica em `skills/`.
+O pacote inclui um catálogo de skills em `skills/`. Use `l-pw2c skill list` para ver as instaladas e o MCP para descobrir as disponíveis.
 
-Estrutura esperada:
+---
+
+## Contribuidores
+
+Instruções para quem desenvolve ou contribui no repositório.
+
+### Stack
+
+- TypeScript estrito
+- ESM
+- Commander para CLI
+- Zod para validação
+- MCP TypeScript SDK
+- Vitest para testes
+- ESLint + Prettier
+- Changesets para release
+
+### Instalação local
+
+```bash
+npm install
+npm run build
+```
+
+### Desenvolvimento
+
+```bash
+npm run dev -- skill list
+npm run dev -- skill install example-skill
+```
+
+Comandos da CLI em modo dev (sem instalar o pacote):
+
+```bash
+npm run dev -- skill install example-skill
+npm run dev -- skill uninstall example-skill
+npm run dev -- skill list
+npm run dev -- skill update example-skill
+npm run dev -- skill update --all
+```
+
+### Catálogo de skills (estrutura)
+
+O catálogo fica em `skills/`:
 
 ```text
 skills/
@@ -157,9 +157,9 @@ skills/
       references/
 ```
 
-Consulte [docs/adding-skills.md](docs/adding-skills.md) para o fluxo completo de cadastro.
+Consulte [docs/adding-skills.md](docs/adding-skills.md) para o fluxo completo de cadastro de novas skills.
 
-## Scripts
+### Scripts
 
 ```bash
 npm run lint
@@ -169,13 +169,17 @@ npm run build
 npm run package:check
 ```
 
-## Release e GitHub Packages
+### Release e GitHub Packages
 
-O workflow de release usa:
+O workflow de release usa Changesets, GitHub Actions e GitHub Packages.
 
-- `Changesets` para versionamento
-- `GitHub Actions` para validação e publicação
-- `GitHub Packages` como registry npm
+**Como publicar uma nova versão**
+
+1. **Criar o changeset** — `npm run changeset`. Escolha o tipo de bump (patch, minor, major) e escreva o resumo das mudanças (entra no CHANGELOG).
+2. **Commitar e enviar** — commit do arquivo em `.changeset/` (e das suas alterações) e push; merge na `main` quando apropriado.
+3. **CI** — na `main`, o workflow valida (lint, typecheck, testes, build), aplica os changesets (atualiza `package.json` e CHANGELOG) e publica no GitHub Packages.
+
+Você **não** precisa alterar o `version` no `package.json` manualmente, nem rodar `version-packages` ou `release` localmente; a pipeline faz isso.
 
 Antes do primeiro publish, confirme:
 
@@ -183,7 +187,7 @@ Antes do primeiro publish, confirme:
 2. o `package.json` está com o nome correto do pacote
 3. a visibilidade/permissões do pacote no GitHub Packages estão alinhadas com o time
 
-## Testes
+### Testes
 
 Os testes cobrem:
 
