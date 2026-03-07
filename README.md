@@ -171,13 +171,13 @@ npm run package:check
 
 ### Release e GitHub Packages
 
-O workflow de release usa Changesets, GitHub Actions e GitHub Packages.
+O workflow de release usa Changesets, GitHub Actions e GitHub Packages. O fluxo faz **commit direto na `main`** (sem abrir PR), para funcionar mesmo quando a organização não permite que o GitHub Actions crie pull requests. Se essa permissão estiver habilitada (Settings → Actions → General → "Allow GitHub Actions to create and approve pull requests"), você pode optar por usar a `changesets/action` com fluxo baseado em PR.
 
 **Como publicar uma nova versão**
 
 1. **Criar o changeset** — `npm run changeset`. Escolha o tipo de bump (patch, minor, major) e escreva o resumo das mudanças (entra no CHANGELOG).
-2. **Commitar e enviar** — commit do arquivo em `.changeset/` (e das suas alterações) e push; merge na `main` quando apropriado.
-3. **CI** — na `main`, o workflow valida (lint, typecheck, testes, build), aplica os changesets (atualiza `package.json` e CHANGELOG) e publica no GitHub Packages.
+2. **Commitar e enviar** — commit do arquivo em `.changeset/` (e das suas alterações) e push na `main`.
+3. **CI** — na `main`, o workflow valida (lint, typecheck, testes, build), aplica os changesets (atualiza `package.json` e CHANGELOG), faz commit e push do bump na própria `main` e publica no GitHub Packages.
 
 Você **não** precisa alterar o `version` no `package.json` manualmente, nem rodar `version-packages` ou `release` localmente; a pipeline faz isso.
 
