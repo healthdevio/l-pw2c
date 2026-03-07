@@ -1,5 +1,11 @@
 # @healthdevio/l-pw2c
 
+## 0.1.3
+
+### Patch Changes
+
+- 898b773: Adiciona possibilidade de instalar todas as SKILLS de uma categoria
+
 ## 0.1.2
 
 ### Patch Changes

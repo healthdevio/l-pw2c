@@ -1,6 +1,6 @@
 {
   "name": "@healthdevio/l-pw2c",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "CLI para instalar, listar, atualizar e expor skills da HealthDev para agentes de IA.",
   "type": "module",
   "bin": {
