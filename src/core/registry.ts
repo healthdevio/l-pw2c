@@ -53,6 +53,17 @@ export async function loadRegistry(
   return registry.skills;
 }
 
+export async function getSkillIdsByCategory(
+  registryFile: string,
+  category: string,
+): Promise<string[]> {
+  const registry = await loadRegistry(registryFile);
+  return registry
+    .filter((entry) => entry.category === category)
+    .map((entry) => entry.id)
+    .sort();
+}
+
 export async function loadManifest(
   manifestPath: string,
 ): Promise<SkillManifest> {

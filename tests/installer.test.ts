@@ -37,10 +37,7 @@ describe("installer", () => {
     const installDir = join(paths.installDir, result.record.id);
 
     await expect(access(join(installDir, "SKILL.md"))).resolves.toBeUndefined();
-    const skillFile = await readFile(
-      join(installDir, "SKILL.md"),
-      "utf8",
-    );
+    const skillFile = await readFile(join(installDir, "SKILL.md"), "utf8");
     expect(skillFile).toContain("Example Skill");
 
     const state = await loadState(paths.stateFile);

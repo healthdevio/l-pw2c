@@ -53,6 +53,17 @@ export async function upsertInstalledSkill(
   return state;
 }
 
+export async function getInstalledSkillIdsByCategory(
+  stateFile: string,
+  category: string,
+): Promise<string[]> {
+  const state = await loadState(stateFile);
+  return Object.values(state.installedSkills)
+    .filter((record) => record.category === category)
+    .map((record) => record.id)
+    .sort();
+}
+
 export async function removeInstalledSkill(
   stateFile: string,
   skillId: string,
