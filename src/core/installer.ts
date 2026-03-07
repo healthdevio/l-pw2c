@@ -35,7 +35,6 @@ export async function installSkill(
     id: descriptor.entry.id,
     version: descriptor.entry.version,
     installedAt: new Date().toISOString(),
-    installPath,
     category: descriptor.entry.category,
   };
 

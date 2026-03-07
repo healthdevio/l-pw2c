@@ -10,7 +10,7 @@ const installedSkillRecordSchema = z.object({
   id: z.string().min(1),
   version: z.string().min(1),
   installedAt: z.string().datetime(),
-  installPath: z.string().min(1),
+  installPath: z.string().min(1).optional(), // legado: não é mais gravado; aceito ao carregar state antigo
   category: z.string().min(1),
 });
 

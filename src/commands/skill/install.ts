@@ -1,5 +1,7 @@
-import { installSkill } from "../../core/installer.js";
+import { join } from "node:path";
+
 import { resolvePaths } from "../../core/config.js";
+import { installSkill } from "../../core/installer.js";
 import type { CommonCommandOptions } from "../types.js";
 
 export interface InstallCommandResult {
@@ -18,6 +20,6 @@ export async function installSkillCommand(
   return {
     skillId: result.record.id,
     version: result.record.version,
-    installPath: result.record.installPath,
+    installPath: join(paths.installDir, result.record.id),
   };
 }

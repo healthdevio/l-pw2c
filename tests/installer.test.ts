@@ -34,12 +34,11 @@ describe("installer", () => {
     const paths = resolvePaths({ projectDir });
 
     const result = await installSkill(paths, "example-skill");
+    const installDir = join(paths.installDir, result.record.id);
 
-    await expect(
-      access(join(result.record.installPath, "SKILL.md")),
-    ).resolves.toBeUndefined();
+    await expect(access(join(installDir, "SKILL.md"))).resolves.toBeUndefined();
     const skillFile = await readFile(
-      join(result.record.installPath, "SKILL.md"),
+      join(installDir, "SKILL.md"),
       "utf8",
     );
     expect(skillFile).toContain("Example Skill");
@@ -84,7 +83,6 @@ describe("installer", () => {
     state.installedSkills["another-skill"] = {
       category: "testing",
       id: "another-skill",
-      installPath: join(paths.installDir, "another-skill"),
       installedAt: new Date().toISOString(),
       version: "0.0.1",
     };

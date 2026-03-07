@@ -26,7 +26,6 @@ export interface InstalledSkillRecord {
   id: string;
   version: string;
   installedAt: string;
-  installPath: string;
   category: string;
 }
 
