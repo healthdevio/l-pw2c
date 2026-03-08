@@ -1,5 +1,11 @@
 # @healthdevio/l-pw2c
 
+## 0.1.4
+
+### Patch Changes
+
+- 03a26c1: Adiciona skill component-architect-memory para busca em banco de dados
+
 ## 0.1.3
 
 ### Patch Changes
