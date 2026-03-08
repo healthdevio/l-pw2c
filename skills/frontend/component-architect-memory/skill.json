@@ -1,0 +1,19 @@
+{
+  "id": "component-architect-memory",
+  "name": "Component Architect (Memory)",
+  "version": "0.1.0",
+  "category": "frontend",
+  "description": "Especialista em engenharia de componentes React/Next.js com foco em DRY, reutilização e padrões SOLID. Inclui memória técnica (LightRAG) para consulta e indexação de componentes, hooks e utils entre projetos.",
+  "entry": "SKILL.md",
+  "files": [
+    "SKILL.md",
+    "references/tech-reference.md",
+    "references/knowledge-card-template.md",
+    "references/mcp-setup.md"
+  ],
+  "tags": ["frontend", "react", "nextjs", "components", "cursor"],
+  "compatibility": {
+    "targets": ["cursor", "mcp"],
+    "minimumCliVersion": "0.1.0"
+  }
+}

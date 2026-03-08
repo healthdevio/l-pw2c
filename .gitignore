@@ -4,3 +4,11 @@ coverage
 .DS_Store
 *.log
 .changeset/pre.json
+
+.cursor
+.vscode
+
+# env / secrets
+.env
+.env.local
+.env.*.local

@@ -1,0 +1,118 @@
+# Stack para LightRAG (component-architect)
+volumes:
+  lightrag-dev-data:
+
+services:
+  lightrag-dev:
+    image: ghcr.io/hkuds/lightrag:latest
+    # ports:
+    #   - 9621:9621
+    networks:
+      - traefik_proxy:
+    volumes:
+      - lightrag-dev-data:/app/data
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "5m"
+        max-file: "3"
+    deploy:
+      labels:
+        - traefik.enable=true
+        - traefik.http.routers.lightrag-dev.rule=Host(`${DOMAIN_NAME}`)
+        - traefik.http.routers.lightrag-dev.entrypoints=websecure
+        - traefik.http.routers.lightrag-dev.tls.certresolver=leresolver
+        - traefik.http.services.lightrag-dev.loadbalancer.server.port=9621
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.hostname == docuscan
+      restart_policy:
+        condition: on-failure
+      resources:
+        limits:
+          memory: 1G
+
+    environment:
+      # LightRAG Configuration File
+      HOST: 0.0.0.0
+      PORT: 9621
+      WEBUI_TITLE: "Developer RAG - Graph KB"
+      WEBUI_DESCRIPTION: "Developer RAG - Graph KB System"
+      # Directory Configuration
+      INPUT_DIR: ./data/inputs
+      WORKING_DIR: ./data/rag_storage
+      # Logging level
+      LOG_LEVEL: INFO
+      VERBOSE: False
+
+      AUTH_ACCOUNTS: ${AUTH_ACCOUNTS}
+      TOKEN_SECRET: ${TOKEN_SECRET}
+      JWT_ALGORITHM: HS256
+
+      # API-Key to access LightRAG Server API
+      LIGHTRAG_API_KEY: ${LIGHTRAG_API_KEY}
+      # WHITELIST_PATHS=/health,/api/*
+
+      ENABLE_LLM_CACHE: true
+      TOP_K: 40 # Number of entities or relations retrieved from KG
+      CHUNK_TOP_K: 20 # Maximum number of chunks for naive vector search
+      MAX_ENTITY_TOKENS: 6000 # Control the actual entities send to LLM
+      MAX_RELATION_TOKENS: 8000 # Control the actual relations send to LLM
+      MAX_TOTAL_TOKENS: 30000 # Control the maximum tokens send to LLM
+
+      ENABLE_LLM_CACHE_FOR_EXTRACT: true
+      SUMMARY_LANGUAGE: Portuguese # Document processing output language
+
+      CHUNK_SIZE: 1200 # Chunk size for document splitting
+      CHUNK_OVERLAP_SIZE: 100 # Chunk overlap size for document splitting
+
+      MAX_ASYNC: 1 # Max concurrency requests of LLM
+      MAX_PARALLEL_INSERT: 2 # Number of parallel processing documents
+      EMBEDDING_FUNC_MAX_ASYNC: 8 # Max concurrency requests for Embedding
+      EMBEDDING_BATCH_NUM: 10 # Number of chunks send to Embedding in single request
+
+      # LLM Configuration
+      LLM_TIMEOUT: 180 # LLM request timeout setting
+      LLM_BINDING: openai
+      LLM_MODEL: gpt-5.1-chat-latest
+      LLM_BINDING_HOST: https://api.openai.com/v1
+      LLM_BINDING_API_KEY: ${LLM_BINDING_API_KEY}
+
+      # Embedding Configuration
+      EMBEDDING_TIMEOUT: 30
+      EMBEDDING_BINDING: openai
+      EMBEDDING_MODEL: text-embedding-3-small
+      EMBEDDING_DIM: 1536
+      EMBEDDING_BINDING_HOST: https://api.openai.com/v1
+      EMBEDDING_BINDING_API_KEY: ${EMBEDDING_BINDING_API_KEY}
+
+      # WORKSPACE setting workspace name for all storage types in the purpose of isolating data from LightRAG instances.
+      WORKSPACE: developer-mcp
+      # Data storage selection
+      LIGHTRAG_KV_STORAGE: PGKVStorage
+      LIGHTRAG_DOC_STATUS_STORAGE: PGDocStatusStorage
+      LIGHTRAG_GRAPH_STORAGE: PGGraphStorage
+      LIGHTRAG_VECTOR_STORAGE: PGVectorStorage
+
+      # PostgreSQL Configuration
+      POSTGRES_HOST: ${POSTGRES_HOST}
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DATABASE: ${POSTGRES_DATABASE}
+      POSTGRES_MAX_CONNECTIONS: 12
+
+      # PostgreSQL Vector Storage Configuration
+      POSTGRES_VECTOR_INDEX_TYPE: IVFFLAT
+      POSTGRES_HNSW_M: 16
+      POSTGRES_HNSW_EF: 200
+      POSTGRES_IVFFLAT_LISTS: 100
+
+      REDIS_HOST: ${REDIS_HOST}
+      REDIS_PORT: 6379
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+
+      DOMAIN_NAME: ${DOMAIN_NAME}
+      GENERIC_TIMEZONE: America/Sao_Paulo

@@ -24,6 +24,14 @@
       "category": "frontend",
       "description": "Especialista em engenharia de componentes React/Next.js com foco em DRY, reutilização e padrões SOLID.",
       "manifestPath": "frontend/component-architect/skill.json"
+    },
+    {
+      "id": "component-architect-memory",
+      "name": "Component Architect (Memory)",
+      "version": "0.1.0",
+      "category": "frontend",
+      "description": "Especialista em engenharia de componentes React/Next.js com foco em DRY, reutilização e padrões SOLID. Inclui memória técnica (LightRAG) para consulta e indexação de componentes, hooks e utils entre projetos.",
+      "manifestPath": "frontend/component-architect-memory/skill.json"
     }
   ]
 }
