@@ -51,8 +51,17 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Smoke test CLI
+      - name: Smoke test CLI (JSON)
         run: node dist/cli.js skill list --json
+
+      - name: Smoke test CLI (stdout)
+        run: |
+          output="$(node dist/cli.js skill list)"
+          echo "$output"
+          if ! echo "$output" | grep -q "example-skill"; then
+            echo "Esperado encontrar 'example-skill' na saída do comando skill list."
+            exit 1
+          fi
 
       - name: Package dry-run
         run: npm run package:check

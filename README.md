@@ -40,7 +40,9 @@ Verifique se você está usando o token correto no arquivo `.npmrc` na raiz do s
 ```bash
 l-pw2c skill install <skill-id>
 l-pw2c skill uninstall <skill-id>
-l-pw2c skill list
+l-pw2c skill list               # lista todas as skills do catálogo
+l-pw2c skill list --installed   # lista apenas as instaladas no projeto atual
+l-pw2c skill list --available   # lista apenas as não instaladas
 l-pw2c skill update <skill-id>
 l-pw2c skill update --all
 ```
@@ -52,6 +54,32 @@ npx @healthdevio/l-pw2c skill install example-skill
 npx @healthdevio/l-pw2c skill uninstall example-skill
 npx @healthdevio/l-pw2c skill list
 npx @healthdevio/l-pw2c mcp
+```
+
+### Pré-requisitos em Linux (GitHub Packages)
+
+Para usar o pacote via GitHub Packages em Linux, configure o `.npmrc` (global ou do projeto):
+
+```text
+@healthdevio:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=AUTH_TOKEN_AQUI
+```
+
+Depois disso, o comando abaixo deve listar ao menos a `example-skill`:
+
+```bash
+npx @healthdevio/l-pw2c skill list
+```
+
+Se o comando não exibir nenhuma linha:
+
+- confirme se o `.npmrc` está sendo lido (por exemplo, rodando `npm config list`);
+- verifique a versão do Node (>= 20);
+- confira se o pacote foi baixado corretamente (`node_modules/@healthdevio/l-pw2c/skills/registry.json` existe);
+- rode o comando com `--json` para ajudar no debug:
+
+```bash
+npx @healthdevio/l-pw2c skill list --json
 ```
 
 ## Onde as skills são instaladas
