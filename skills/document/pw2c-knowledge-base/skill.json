@@ -1,0 +1,18 @@
+{
+  "id": "pw2c-knowledge-base",
+  "name": "PW2C Knowledge Base",
+  "version": "0.1.0",
+  "category": "document",
+  "description": "Consulta e envia conhecimento à base PW2C (LightRAG). Use ao planejar, antes de codar, ao resolver bugs/tarefas complexas ou quando o usuário pedir para consultar/indexar a base.",
+  "entry": "SKILL.md",
+  "files": [
+    "SKILL.md",
+    "references/doc-template.md",
+    "references/mcp-setup.md"
+  ],
+  "tags": ["document", "knowledge-base", "cursor"],
+  "compatibility": {
+    "targets": ["cursor", "mcp"],
+    "minimumCliVersion": "0.1.0"
+  }
+}

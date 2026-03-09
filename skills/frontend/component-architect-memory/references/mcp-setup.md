@@ -1,6 +1,6 @@
 # Configuração MCP (Component Architect Memory)
 
-Para esta skill funcionar (consulta e ingestão no LightRAG + uso do Shadcn MCP), o usuário precisa configurar os servidores MCP no cliente (ex.: Cursor). **Quando a consulta ao LightRAG falhar ou as ferramentas `lightrag.*` não estiverem disponíveis**, oriente o usuário a configurar conforme este arquivo e indique a documentação completa em `docs/skill-plan/readme.md`.
+Para esta skill funcionar (consulta e ingestão no LightRAG + uso do Shadcn MCP), o usuário precisa configurar os servidores MCP no cliente (ex.: Cursor). **Quando a consulta ao LightRAG falhar ou as ferramentas `mcp_pw2c_knowledge_*` não estiverem disponíveis**, oriente o usuário a configurar conforme este arquivo e indique a documentação completa em `docs/skill-plan/readme.md`.
 
 **Onde configurar:** arquivo de configuração MCP do cliente (ex.: `.cursor/mcp.json` ou configuração global do Cursor).
 
@@ -13,7 +13,7 @@ Para esta skill funcionar (consulta e ingestão no LightRAG + uso do Shadcn MCP)
       "command": "npx",
       "args": ["shadcn@latest", "mcp"]
     },
-    "lightrag-mcp": {
+    "pw2c_knowledge": {
       "command": "npx",
       "args": ["@g99/lightrag-mcp-server"],
       "env": {

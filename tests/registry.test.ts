@@ -8,7 +8,7 @@ import {
   validateRegistry,
 } from "../src/core/registry.js";
 
-const registryLength = 4;
+const registryLength = 5;
 
 describe("skill registry", () => {
   it("carrega e valida o catálogo padrão", async () => {
@@ -37,5 +37,17 @@ describe("skill registry", () => {
     const result = await searchSkills(paths.registryFile, "cursor");
 
     expect(result.map((item) => item.entry.id)).toContain("example-skill");
+  });
+
+  it("retorna o descriptor da skill pw2c-knowledge-base", async () => {
+    const paths = resolvePaths();
+    const descriptor = await getSkillDescriptor(
+      paths.registryFile,
+      "pw2c-knowledge-base",
+    );
+
+    expect(descriptor.manifest.entry).toBe("SKILL.md");
+    expect(descriptor.entry.category).toBe("document");
+    expect(descriptor.entry.id).toBe("pw2c-knowledge-base");
   });
 });

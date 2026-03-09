@@ -63,11 +63,11 @@ Lista de entidades relacionadas para o LightRAG criar conexões (edges):
 
 ## Instruções para o agente (não enviar para a base)
 
-O conteúdo **acima** (do primeiro `---` até o fim da seção "Restrições e Side-Effects") é o que deve ser enviado para `lightrag.insert_texts`. Preencha os placeholders e substitua os exemplos pelo conteúdo real. A seção abaixo serve só de referência ao preencher.
+O conteúdo **acima** (do primeiro `---` até o fim da seção "Restrições e Side-Effects") é o que deve ser enviado para `mcp_pw2c_knowledge_insert_texts`. Preencha os placeholders e substitua os exemplos pelo conteúdo real. A seção abaixo serve só de referência ao preencher.
 
 ### Nome do documento na base
 
-Ao chamar `lightrag.insert_texts`, informe sempre o parâmetro **file_sources** (ou **file_source** em insert de um único texto) com um nome que um humano consiga reconhecer na interface do LightRAG. **Não use o padrão** (ex.: `text_input_1.txt`).
+Ao chamar `mcp_pw2c_knowledge_insert_texts`, informe sempre o parâmetro **file_sources** (ou **file_source** em insert de um único texto) com um nome que um humano consiga reconhecer na interface do LightRAG. **Não use o padrão** (ex.: `text_input_1.txt`).
 
 **Convenção:** `knowledge-card-{slug-projeto}-{tipo}-{nome-recurso}.md`
 

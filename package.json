@@ -35,6 +35,7 @@
     "test:coverage": "vitest run --coverage",
     "test:ci": "vitest run --reporter=dot",
     "package:check": "npm pack --dry-run",
+    "test:all": "npm run format && npm run lint --fix && npm run typecheck && npm run test",
     "changeset": "changeset",
     "version-packages": "changeset version",
     "release": "changeset publish"

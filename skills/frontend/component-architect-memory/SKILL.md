@@ -19,7 +19,7 @@ Especialista em engenharia de componentes React 19 e Next.js (App Router). Atua 
 
 Antes de qualquer busca local (Grep), você DEVE consultar a Base de Conhecimento Central:
 
-1. **Query:** `lightrag.query_text(query="Existem componentes, hooks ou utils para [tarefa] seguindo os padrões deste projeto?", mode="hybrid")`. Inclua na query a **tag do projeto** (ex.: de `package.json` → `name`) quando souber, para melhor filtragem.
+1. **Query:** `mcp_pw2c_knowledge_query_text(query="Existem componentes, hooks ou utils para [tarefa] seguindo os padrões deste projeto?", mode="hybrid")`. Inclua na query a **tag do projeto** (ex.: de `package.json` → `name`) quando souber, para melhor filtragem.
 2. **Análise:** Se houver um "Knowledge Card" de outro projeto, avalie a portabilidade.
 3. **Decisão:** Priorize importar ou copiar do reuso central antes de criar do zero. **DRY sistêmico:** Se o recurso existe na memória mas não no projeto atual (ex.: em outro repositório), **sugira ao usuário** importar ou copiar da fonte original (informe o path ou referência do card), em vez de reimplementar.
 4. **Fallback:** Em caso de falha na consulta ao LightRAG (ferramenta indisponível, erro de rede ou MCP não configurado), prossiga com a **Fase 1 (Descoberta local)** e informe ao usuário que a memória central está indisponível. Oriente a configurar o MCP conforme **references/mcp-setup.md**.
@@ -43,7 +43,7 @@ Antes de codar, caso não encontre nada na **Fase Zero** você DEVE pesquisar no
 Ao finalizar um componente, hook ou utils:
 
 1. **Identificar:** O recurso é genérico o suficiente para outros projetos?
-2. **Indexar:** Use `lightrag.insert_texts` enviando o "Knowledge Card" em Markdown e o parâmetro **file_sources** com um nome descritivo (ver "Nome do documento na base" em references/knowledge-card-template.md). **Use o template em references/knowledge-card-template.md**: preencha todos os campos e **metadados obrigatórios**. Regras fixas: **project** = `package.json` → `name`; **scope** = `GLOBAL` (recurso em custom/core/hooks) ou `FEATURE:<domain>` (em features); **tags** = primeira tag = slug do projeto (derivado de `project`), demais = stack (ex.: `nextjs15`, `tailwind`, `shadcn`). Inclua sempre **código de exemplo de uso** no card (seção "Snippet de Implementação Rápida"): extraia um uso real do projeto ou monte um exemplo mínimo. **Após indexar:** confirme em uma linha (ver "Feedback após indexação" abaixo).
+2. **Indexar:** Use `mcp_pw2c_knowledge_insert_texts` enviando o "Knowledge Card" em Markdown e o parâmetro **file_sources** com um nome descritivo (ver "Nome do documento na base" em references/knowledge-card-template.md). **Use o template em references/knowledge-card-template.md**: preencha todos os campos e **metadados obrigatórios**. Regras fixas: **project** = `package.json` → `name`; **scope** = `GLOBAL` (recurso em custom/core/hooks) ou `FEATURE:<domain>` (em features); **tags** = primeira tag = slug do projeto (derivado de `project`), demais = stack (ex.: `nextjs15`, `tailwind`, `shadcn`). Inclua sempre **código de exemplo de uso** no card (seção "Snippet de Implementação Rápida"): extraia um uso real do projeto ou monte um exemplo mínimo. **Após indexar:** confirme em uma linha (ver "Feedback após indexação" abaixo).
 
 ### Indexação sob demanda (a pedido do dev)
 
@@ -53,7 +53,7 @@ Quando o **desenvolvedor pedir explicitamente** para subir um componente, hook o
 2. **Ler o código:** Abra o arquivo, extraia a interface/Props, dependências (imports) e localização exata.
 3. **Obter ou montar snippet de uso:** Preferência nesta ordem: (a) trecho real de uso no próprio projeto (busque com Grep onde o recurso é importado/usado); (b) exemplo que o próprio dev enviar; (c) exemplo mínimo que você montar a partir da interface. O card **deve** conter código de exemplo de utilização.
 4. **Montar o Knowledge Card:** Use o template em **references/knowledge-card-template.md** com todos os metadados obrigatórios, Contrato (interface), **Snippet de Implementação Rápida** (conforme passo 3) e Localização.
-5. **Indexar:** `lightrag.insert_texts` com o Markdown do card e o parâmetro **file_sources** com o nome descritivo do documento (ver "Nome do documento na base" em references/knowledge-card-template.md). **Após indexar:** confirme em uma linha (ver "Feedback após indexação" abaixo).
+5. **Indexar:** `mcp_pw2c_knowledge_insert_texts` com o Markdown do card e o parâmetro **file_sources** com o nome descritivo do documento (ver "Nome do documento na base" em references/knowledge-card-template.md). **Após indexar:** confirme em uma linha (ver "Feedback após indexação" abaixo).
 
 Não é necessário consultar o LightRAG antes (Fase Zero) neste caso — o objetivo é apenas ingerir o que o dev já escolheu para reuso.
 

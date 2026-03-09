@@ -32,6 +32,14 @@
       "category": "frontend",
       "description": "Especialista em engenharia de componentes React/Next.js com foco em DRY, reutilização e padrões SOLID. Inclui memória técnica (LightRAG) para consulta e indexação de componentes, hooks e utils entre projetos.",
       "manifestPath": "frontend/component-architect-memory/skill.json"
+    },
+    {
+      "id": "pw2c-knowledge-base",
+      "name": "PW2C Knowledge Base",
+      "version": "0.1.0",
+      "category": "document",
+      "description": "Consulta e envia conhecimento à base PW2C (LightRAG). Use ao planejar, antes de codar, ao resolver bugs/tarefas complexas ou quando o usuário pedir para consultar/indexar a base.",
+      "manifestPath": "document/pw2c-knowledge-base/skill.json"
     }
   ]
 }
