@@ -8,6 +8,8 @@ coverage
 .cursor
 .vscode
 
+docs/dev
+
 # env / secrets
 .env
 .env.local
