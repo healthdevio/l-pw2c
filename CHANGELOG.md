@@ -1,5 +1,11 @@
 # @healthdevio/l-pw2c
 
+## 0.1.5
+
+### Patch Changes
+
+- ca195f3: Adiciona nova skill PW2C Knowledge Base
+
 ## 0.1.4
 
 ### Patch Changes
