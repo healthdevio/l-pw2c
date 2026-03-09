@@ -26,6 +26,15 @@ npx @healthdevio/l-pw2c mcp
 
 Se preferir instalar globalmente no seu projeto (ou globalmente na máquina), use `npm install @healthdevio/l-pw2c` conforme a documentação do GitHub Packages. O binário fica disponível como `l-pw2c`.
 
+### Não consegue instalar o pacote?
+
+Verifique se você está usando o token correto no arquivo `.npmrc` na raiz do seu projeto.
+
+```text
+@healthdevio:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=AUTH_TOKEN_AQUI
+```
+
 ## Uso da CLI
 
 ```bash
