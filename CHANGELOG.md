@@ -1,5 +1,11 @@
 # @healthdevio/l-pw2c
 
+## 0.1.6
+
+### Patch Changes
+
+- 8ddd09a: Debug para falhas no linux, mac
+
 ## 0.1.5
 
 ### Patch Changes
